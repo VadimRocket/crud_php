@@ -19,5 +19,5 @@ $start = $pagination->get_start();
 $cities = get_cities($start, $per_page);  // получить города как массив 10 records
 // Подключить файл
 require_once 'views/index.tpl.php';
-?>
+
 

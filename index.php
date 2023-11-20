@@ -16,7 +16,7 @@
       <div class="row">
         <div class="col-12">
           <!-- Button -->
-          <button class="btn btn-primary rounded-0 btn-add" 
+          <button class="btn btn-primary rounded btn-add" 
            data-bs-toggle="modal" 
            data-bs-target="#addCity"
           >Add city</button>

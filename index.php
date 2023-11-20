@@ -9,8 +9,8 @@ require_once 'classes/Pagination.php';
 $db = (Db::getInstance())->getConnection($config['db']);
 $page = $_GET['page'] ?? 1;          // текущий номер стр-цы
 $per_page = $config['per_page'];     // кол-во записей на стр-це 10
-$total = getCount('city');           // получить общее кол-во городов. int 4079
-$pagination = new Pagination($page, $per_page, $total); // create object Pagination
+$total = get_count('city');           // получить общее кол-во городов. int 4079
+$pagination = new Pagination((int)$page, $per_page, $total); // create object Pagination
 /*
  $start  - с какой записи начинать выборку. Нач-ся с 0. 
  Например: http://localhost/crud_php/?page=3  Тогда  $start = int 20 

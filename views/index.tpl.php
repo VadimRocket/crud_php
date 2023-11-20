@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -24,50 +23,7 @@
         </div>
         <!-- Table -->
         <div class="table-responsive my-3">
-         <?php if(!empty($cities)): ?>
-          <!-- Pagination -->
-          <?= $pagination ?>
-          <!-- .Pagination -->
-          <table class="table table-hover">
-            <thead class="table-dark">
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Name</th>
-                <th scope="col">Population</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-            <?php foreach($cities as $city): ?>
-              <tr id="city-<?= $city['id']?>">
-                <th scope="row"><?= $city['id']?></th>
-                <td><?= $city['name']?></td>
-                <td><?= $city['population']?></td>
-                <td>
-                    <button class="btn btn-info btn-edit"
-                      data-id="<?= $city['id']?>"
-                      data-bs-toggle="modal" 
-                      data-bs-target="#editCity"
-                    >
-                      Edit
-                    </button>
-
-                     <button class="btn btn-danger btn-delete"
-                      data-id="<?= $city['id']?>"
-                    >
-                      Delete
-                    </button>
-                </td>
-              </tr> 
-            <?php endforeach;?>
-            </tbody>
-          </table>
-           <!-- Pagination -->
-           <?= $pagination ?>
-          <!-- .Pagination -->
-          <?php else: ?>
-            <p>Cities not found...</p>
-          <?php endif;?>
+          <?php require_once 'views/index-content.tpl.php' ?>
         </div>
       </div>
     </div>
@@ -111,5 +67,6 @@
     </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/main.js"></script>
   </body>
 </html>

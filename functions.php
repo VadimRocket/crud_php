@@ -10,7 +10,7 @@ function print_arr($data): void
 /*
 функция Использует подготовленный SQL запрос для получения общего количества записей (строк) в указанной таблице
 */ 
-function getCount(string $table): int
+function get_count(string $table): int
 {
     global $db;
     return $db->query("SELECT COUNT(*) FROM {$table}")->findColumn();

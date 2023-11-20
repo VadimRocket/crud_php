@@ -120,7 +120,7 @@ class Pagination
             }
         }
     }
-
+   
     public function __toString(): string
     {
         return $this->get_html();

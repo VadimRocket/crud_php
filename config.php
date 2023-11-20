@@ -2,6 +2,8 @@
 // The Config contains:
 // db - db connection
 // per_page - count records on a page
+// PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC - get array(ассоциативный) always
+// for php 7 use  PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION - show errors
 return [
     'db' => [
         'host' => 'localhost',

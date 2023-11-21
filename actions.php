@@ -68,7 +68,7 @@ if(isset($_POST['addCity']))  {
       // Response Формируем ответ
       $res = ['answer' => 'success'];
     }
-    // отправляем на клиент. json_encode Возвращает строку, содержащую JSON-представление value.
+    // отправляем на клиент ответ. json_encode Возвращает строку, содержащую JSON-представление value.
     echo json_encode($res);
     die;
 }
@@ -80,3 +80,83 @@ if(isset($_POST['addCity']))  {
 При заполнении ВСЕХ полей и отправке данных получаем RESPONSE: {"answer":"success"}
 */ 
 
+
+// Get city
+// if exist action key  (action: 'get_city') значит пришел AJAX запрос на получение города
+if(isset($data['action']) && $data['action'] == 'get_city') {
+   // if exist id ? convert string to a number : 0
+   $id = isset($data['id']) ? (int)$data['id'] : 0;
+   // get city data
+   $city = $db->query("SELECT * FROM city WHERE id = ?", [$id])->find();
+   if($city) {
+      // add key city with value = $city
+      $res = ['answer' => 'success', 'city' => $city];
+   } else {
+      // Формируем ответ 
+      $res = ['answer' => 'error',];
+   }
+   // отправляем на клиент ответ
+   echo json_encode($res);
+   die;
+}
+
+/*
+Проверяем ответ сервера.
+- нажимаем на копку Edit и пол-м response see in  Network -> action.php
+{"answer":"success","city":{"id":"231","name":"Jo\u00e3o Pessoa","population":"584029"}}
+
+- В нажимаем на 4 стр пагинации получ-м response
+{"answer":"success","city":{"id":"33","name":"Willemstad","population":"2345"}}
+
+Эти данные мы должны добавить в поля формы редактирования города Edit city
+у каждого input есть id:
+Name: input id="editName"
+Population: input id=""editPopulation"
+
+Исп-м их в main.js
+*/
+
+// Edit city
+if (isset($_POST['editCity'])) {
+    $data = $_POST;
+    $validator = new Validator();
+    $validation = $validator->validate($data, [
+        'name' => [
+            'required' => true,
+        ],
+        'population' => [
+            'minNum' => 1,
+        ],
+        'id' => [
+            'minNum' => 1,
+        ],
+    ]);
+    if ($validation->hasErrors()) {
+        $errors = '<ul class="list-unstyled text-start text-danger">';
+        foreach ($validation->getErrors() as $v) {
+            foreach ($v as $error) {
+                $errors .= "<li>{$error}</li>";
+            }
+        }
+        $errors .= '</ul>';
+        $res = ['answer' => 'error', 'errors' => $errors];
+    } else {
+        $db->query("UPDATE city SET `name` = ?, `population` = ? WHERE id = ?", [$data['name'], $data['population'], $data['id']]);
+        $res = ['answer' => 'success'];
+    }
+    echo json_encode($res);
+    die;
+}
+
+// Delete city
+if (isset($data['action']) && $data['action'] == 'delete_city') {
+    $id = isset($data['id']) ? (int)$data['id'] : 0;
+    $res = $db->query("DELETE FROM city WHERE id = ?", [$id]);
+    if ($res) {
+        $res = ['answer' => 'success',];
+    } else {
+        $res = ['answer' => 'error',];
+    }
+    echo json_encode($res);
+    die;
+}

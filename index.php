@@ -5,7 +5,7 @@ require_once 'functions.php';
 require_once 'classes/Db.php';
 require_once 'classes/Pagination.php';
 
-// The Db::getInstance() returns object.  The method getConnection()  connect us with DB
+// The Db::getInstance() returns object. The method getConnection()  connect us with DB
 $db = (Db::getInstance())->getConnection($config['db']);
 $page = $_GET['page'] ?? 1;          // текущий номер стр-цы
 $per_page = $config['per_page'];     // кол-во записей на стр-це 10

@@ -3,27 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <style>
-        #loader {
-            background: rgba(255, 255, 255, 0.7);
-            text-align: center;
-            position: absolute;
-            top: 150px;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            display: none;
-        }
-
-        #loader img {
-            width: 100px;
-        }
-        #clear-search {
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/style.css">
     <title>CRUD PHP with Ajax & MySQL</title>
   </head>
   <body>

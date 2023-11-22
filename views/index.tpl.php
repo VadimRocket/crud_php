@@ -4,6 +4,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <style>
+        #loader {
+            background: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            position: absolute;
+            top: 150px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            display: none;
+        }
+
+        #loader img {
+            width: 100px;
+        }
+        #clear-search {
+            cursor: pointer;
+        }
+    </style>
     <title>CRUD PHP with Ajax & MySQL</title>
   </head>
   <body>
@@ -15,11 +35,26 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <!-- Button -->
-          <button class="btn btn-primary rounded btn-add" 
-           data-bs-toggle="modal" 
-           data-bs-target="#addCity"
-          >Add city</button>
+           <div class="row">
+             <div class="col-md-6">
+                <!-- Button -->
+                <button class="btn btn-primary rounded btn-add" 
+                 data-bs-toggle="modal" 
+                 data-bs-target="#addCity"
+                >Add city</button>
+             </div>
+             <!-- Search -->
+              <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <input type="text" id="search" class="form-control" placeholder="Search...">
+                    <span class="input-group-text" id="clear-search">&times;</span>
+                </div>
+              </div>
+           </div>
+        </div>
+        <!-- Loader -->
+        <div id="loader">
+            <img src="assets/loader.svg" alt="">
         </div>
         <!-- Table -->
         <div class="table-responsive my-3">
@@ -97,6 +132,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="assets/mark.min.js"></script>
   <script src="assets/main.js"></script>
   </body>
 </html>

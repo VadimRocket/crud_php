@@ -81,8 +81,8 @@ divTable.addEventListener('click', (e) => {
 
 
 // Create(Insert) add city to DB (records: name and population)
-addCityForm = document.getElementById('addCityForm');
-btnAddSubmit = document.getElementById('btn-add-submit');
+const addCityForm = document.getElementById('addCityForm');
+const btnAddSubmit = document.getElementById('btn-add-submit');
 
 addCityForm.addEventListener('submit', (e) => {
    e.preventDefault();
@@ -122,8 +122,8 @@ addCityForm.addEventListener('submit', (e) => {
 
 
 // Edit city. Save data to DB (records: name and population)
-editCityForm = document.getElementById('editCityForm');
-btnEditSubmit = document.getElementById('btn-edit-submit');
+const editCityForm = document.getElementById('editCityForm');
+const btnEditSubmit = document.getElementById('btn-edit-submit');
 
 editCityForm.addEventListener('submit', (e) => {
    e.preventDefault();
@@ -164,3 +164,54 @@ editCityForm.addEventListener('submit', (e) => {
     });
 });
 
+// Search
+// get input with id="search"
+const sField = document.getElementById('search');
+// get img loader
+const loader = document.getElementById('loader');
+// add input handler
+sField.addEventListener('input', (e) => {
+    // trim seach string
+    let search = e.target.value.trim();
+    // if len of a str > 2 symbols do fetch
+    if (search.length > 2) {
+        fetch('actions.php', {
+            method: 'POST',
+            // pass obj with key: search & value: search string 
+            body: JSON.stringify({search: search})
+        })
+        // get text data
+        .then((response) => response.text())
+        .then((data) => {
+            // show loader
+            loader.style.display = 'block';
+            setTimeout(() => {
+                // add data to table
+                divTable.innerHTML = data;
+                // Word Highlighting in the Document
+                let instance = new Mark(divTable);
+                instance.mark(search);
+                // hide loader
+                loader.style.display = 'none';
+            }, 500);
+        })
+    }
+});
+
+// Clear search input if clicked on the btn
+document.getElementById('clear-search').addEventListener('click', () => {
+    // clear search input
+    sField.value = '';
+    // do fetch req
+    fetch('actions.php', {
+        method: 'POST',
+        // start from 1 page if cleaned search input
+        body: JSON.stringify({ page: 1 })
+    })
+    // get res as text
+    .then((response) => response.text())
+    // insert a data to the table
+    .then((data) => {
+        divTable.innerHTML = data;
+    });
+});

@@ -14,7 +14,16 @@ $db = (Db::getInstance())->getConnection($config['db']);
 // GET RESPONSE on AJAX request as JSON string from server as assoc array
 $data  = json_decode(file_get_contents('php://input'), true);
 
-// pagination if contains page element
+
+// Search
+if (isset($data['search'])) {
+    $search = trim($data['search']);
+    $search_cities = search_cities($search);
+    require_once 'views/search.tpl.php';
+    die;
+}
+
+// Pagination if contains page element
 if(isset($data['page'])){
     $page = (int)$data['page']; 
     $per_page = $config['per_page'];      // кол-во записей на стр-це 10
